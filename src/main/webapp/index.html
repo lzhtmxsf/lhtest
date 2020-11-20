@@ -2,9 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>标题</title>
 </head>
+<script type="application/javascript">
+    function f() {
+        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+        httpRequest.open('POST', 'https://safebox.test.safecenter.com/webrelay/api/sbox/user/account/check', true); //第二步：打开连接
+        httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+        httpRequest.send("{account:'qweqwe'}");//发送请求 将情头体写在send中
+        /**
+         * 获取数据后的处理程序
+         */
+        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                var json = httpRequest.responseText;//获取到服务端返回的数据
+                console.log(json);
+            }
+        };
+    }
+
+    function f1() {
+        var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
+        httpRequest.open('GET', 'http://www.baidu.com', true);//第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
+        httpRequest.send();//第三步：发送请求  将请求参数写在URL中
+        /**
+         * 获取数据后的处理程序
+         */
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var json = httpRequest.responseText;//获取到json字符串，还需解析
+                console.log(json);
+            }
+        };
+    }
+
+    function post(URL, PARAMS)
+    {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        for (var x in PARAMS)
+        {
+            var opt = document.createElement("textarea");
+            opt.name = x;
+            opt.value = PARAMS[x];
+            // alert(opt.name)
+            temp.appendChild(opt);
+        }
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+
+    function post1(){
+        var postData = {
+            "account":"lihan@xdja.com"
+        };
+
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "https://safebox.test.safecenter.com/webrelay/api/sbox/user/account/check", true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function(){
+
+            var XMLHttpReq = xhr;
+            /**
+             XMLHttpReq.readyState
+             0: 请求未初始化
+             1: 服务器连接已建立
+             2: 请求已接收
+             3: 请求处理中
+             4: 请求已完成，且响应已就绪
+             **/
+            if (XMLHttpReq.readyState == 4) {
+                if (XMLHttpReq.status == 200) {
+                    var data = XMLHttpReq.responseText;
+                    // alert(data)
+                    console.log(data);
+                    var json = JSON.parse(data);
+                    console.log(json.value)
+                }else if(XMLHttpReq.status == 100){
+
+                }else if(XMLHttpReq.status == 300){
+
+                }else if(XMLHttpReq.status == 400){
+
+                }else if(XMLHttpReq.status == 500){
+
+                }else if(XMLHttpReq.status == 0){
+                    /** 0不是http协议的状态,关于XMLHttpReq.status的说明:
+                     1、If the state is UNSENT or OPENED, return 0.（如果状态是UNSENT或者OPENED，返回0）
+                     2、If the error flag is set, return 0.（如果错误标签被设置，返回0）
+                     3、Return the HTTP status code.（返回HTTP状态码）
+                     第一种情况,例如:url请求的是本地文件,状态会是0
+                     第二种情况经常出现在跨域请求中,比如url不是本身网站IP或域名,例如请求www.baidu.com时
+                     第三种,正常请求本站http协议信息时,正常返回http协议状态值
+                     **/
+                }
+
+            }
+        };
+        xhr.send(JSON.stringify(postData));
+    }
+
+</script>
 <body>
-sssssssssssssssssssssssssssssss
+    <div>
+        <table>
+            <tr>
+                <td>
+                    都是
+                </td>
+                <td>
+                    都是
+                </td>
+            </tr>
+        </table>
+    </div>
+<button onclick="f()"> sd</button>
+
+<!--<iframe src="http://www.baidu.com" width="900px" height="500px">-->
+
+<!--</iframe>-->
 </body>
 </html>
